@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>MyShop | Profile</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="background text-light p-3 text-center">Seller Profile Section</h3>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {% if User.pic %}
+            <img src={{User.pic.url}} class="w-100">
+            {% else %}
+            <img src="{% static 'images/noimage.png' %}" class="w-100">
+            {% endif %}
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <table class="table table-light table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <td>{{User.name}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{User.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email Id</th>
+                    <td>{{User.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{User.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 1</th>
+                    <td>{{User.addressline1}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 2</th>
+                    <td>{{User.addressline2}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 3</th>
+                    <td>{{User.addressline3}}</td>
+                </tr>
+                <tr>
+                    <th>PIN</th>
+                    <td>{{User.pin}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{User.city}}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{User.state}}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><a class="btn background text-light w-100" href="/updateProfile/">Update Profile</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<h3 class="background text-light p-3 text-center mt-2">My Product Section <span><a href="/addProduct/"><span
+                class="material-icons" style="font-size: 35px;color:white">add_circle_outline</span></a></span></h3>
+<div class="table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Base Price</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Stock</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for i in Products %}
+        <tr>
+            {% if i.pic1 %}
+            <td><img src={{i.pic1.url }} width="150px" height="150px"></td>
+            {% else %}
+            <td><img src="{% static 'images/noimagep.png' %}" width="150px" height="150px"></td>
+            {% endif %}
+            <td>{{i.name}}</td>
+            <td>Rs {{i.basePrice}}</td>
+            <td>{{i.discount}}%</td>
+            <td>{{i.finapPrice}}</td>
+            <td>{{i.color}}</td>
+            <td>{{i.size}}</td>
+            {% if i.stock %}
+            <td>In Stock</td>
+            {% else %}
+            <td>Out Of Stock</td>
+            {% endif %}
+            <td><a href="/editProduct/{{i.id}}/"><span
+                class="material-icons" style="font-size: 25px;color:navy">edit</span></a></td>
+            <td><a href="/deleteProduct/{{i.id}}/"><span
+                class="material-icons" style="font-size: 20px;color:navy">delete_forever</span></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

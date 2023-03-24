@@ -1,0 +1,120 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>MyShop | Product</title>
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="background text-light p-3 text-center">Single Product Section</h3>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src={{Product.pic1.url}} width="100%" height="500px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{Product.pic2.url}} width="100%" height="500px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{Product.pic3.url}} width="100%" height="500px" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{Product.pic4.url}} width="100%" height="500px" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="mt-2 mb-2">
+                <img src={{Product.pic1.url}} width="24%">
+                <img src={{Product.pic2.url}} width="24%">
+                <img src={{Product.pic3.url}} width="24%">
+                <img src={{Product.pic4.url}} width="24%">
+            </div>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <table class="table table-light table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <td>{{Product.name}}</td>
+                </tr>
+                <tr>
+                    <th>Main-Category</th>
+                    <td>{{Product.maincat.name}}</td>
+                </tr>
+                <tr>
+                    <th>Sub-Category</th>
+                    <td>{{Product.subcat.name}}</td>
+                </tr>
+                <tr>
+                    <th>Brand</th>
+                    <td>{{Product.brand.name}}</td>
+                </tr>
+                <tr>
+                    <th>Base Price</th>
+                    <td>Rs {{Product.basePrice}}</td>
+                </tr>
+                <tr>
+                    <th>Discount</th>
+                    <td>{{Product.discount}}%</td>
+                </tr>
+                <tr>
+                    <th>Final Price</th>
+                    <td>Rs {{Product.finalPrice}}</td>
+                </tr>
+                <tr>
+                    <th>Color</th>
+                    <td>{{Product.color}}</td>
+                </tr>
+                <tr>
+                    <th>Size</th>
+                    <td>{{Product.size}}</td>
+                </tr>
+                <tr>
+                    <th>Stock</th>
+                    {% if Product.stock %}
+                    <td>In Stock</td>
+                    {% else %}
+                    <td>Out Of Stock</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{Product.description}}</td>
+                </tr>
+                <tr>
+                    <th>
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <input type="number" min="1" name="q" class="form-control" value="1">
+                    </th>
+                    <td>
+                        <button type="submit" class="btn btn-sm background text-light" style="display: inline-block;width: 45%;font-size:10px;">Add To Cart</button>
+                        <a href="/wishlist/{{Product.id}}/" class="btn btn-sm background text-light" style="display: inline-block;width: 45%;font-size:10px;">Add To Wishlist</a>
+                    </td>
+                    </form>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% load cart %}
+{% load static %}
+{% block title %}
+<title>MyShop | Profile</title>
+{% endblock %}
+
+{% block body %}
+    <h3 class="background text-light p-3 text-center">Cart Section</h3>
+<div class="table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th></th>
+        </tr>
+        {% for i in Products %}
+        <tr>
+            {% if i.pic1 %}
+            <td><img src={{i.pic1.url }} width="150px" height="150px"></td>
+            {% else %}
+            <td><img src="{% static 'images/noimagep.png' %}" width="150px" height="150px"></td>
+            {% endif %}
+            <td>{{i.name}}</td>
+            <td>{{i.color}}</td>
+            <td>{{i.size}}</td>
+            <td>Rs {{i.finalPrice}}</td>
+            <td>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value={{i.id}}>
+                    <input class="form-control" style="display: inline-block;width: 40%;" type="number" min="1" name="q" value={{request|cartQuantity:i.id}}>
+                    <button type="submit" style="border: none;"><span
+                        class="material-icons" style="font-size: 25px;color:navy">upgrade</span></button>
+                </form>
+            </td>
+            <td>{{request|cartFinal:i.id}}</td>
+            <td><a href="/deleteCart/{{i.id}}/"><span
+                class="material-icons" style="font-size: 20px;color:navy">delete_forever</span></a></td>
+        </tr>
+        {% endfor %}
+        <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td>Total</td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td>{{Total}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Shipping</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{Shipping}}</td>
+         </tr>
+         <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Final Amount</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{Final}}</td>
+         </tr>
+         <tr>
+            <td colspan="4"><a href="/shop/all/all/all" class="btn background text-light w-100">Conitnue Shopping</a></td>
+            {% if Final %}
+            <td colspan="4"><a href="/checkout/" class="btn background text-light w-100">Checkout</a></td>
+            {% else %}
+            <td colspan="4"><a  href="#" class="btn background text-light w-100">Checkout</a></td>
+            {% endif %}
+         </tr>
+    </table>
+</div>
+{% endblock %}

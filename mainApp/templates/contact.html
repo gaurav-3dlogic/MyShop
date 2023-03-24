@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>MyShop | Login</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="background text-light p-3 text-center">Contact US Section</h3>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mapouter">
+                <div class="card">
+                    <div class="card-body text-center background text-light">
+                      <h5 class="card-title">mysite.com</h5>
+                      <h5 class="card-title">Contact : 9540809547</h5>
+                      <h5 class="card-title">Email : gs3dlogic@gmail.com</h5>
+                    </div>
+                  </div>
+                <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas"
+                        src="https://maps.google.com/maps?q=sector%2016%20noida&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+                        href="https://putlocker-is.org"></a><br>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    </style>
+                    <style>
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {% for i in messages %}
+            <div class="alert alert-success" role="alert">
+                {{i}}
+            </div>
+            {% endfor %}
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Name ">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Enter Email Id ">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number ">
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" name="subject" placeholder="Enter subject">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" name="message" cols="30" rows="10"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

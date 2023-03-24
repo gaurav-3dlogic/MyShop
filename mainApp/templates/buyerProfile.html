@@ -1,0 +1,167 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+{% load cart %}
+<title>MyShop | Profile</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="background text-light p-3 text-center">Buyer Profile Section</h3>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {% if User.pic %}
+            <img src={{User.pic.url}} class="w-100">
+            {% else %}
+            <img src="{% static 'images/noimage.png' %}" class="w-100">
+            {% endif %}
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <table class="table table-light table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <td>{{User.name}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{User.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email Id</th>
+                    <td>{{User.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{User.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 1</th>
+                    <td>{{User.addressline1}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 2</th>
+                    <td>{{User.addressline2}}</td>
+                </tr>
+                <tr>
+                    <th>Address Line 3</th>
+                    <td>{{User.addressline3}}</td>
+                </tr>
+                <tr>
+                    <th>PIN</th>
+                    <td>{{User.pin}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{User.city}}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{User.state}}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><a class="btn background text-light w-100" href="/updateProfile/">Update Profile</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<h3 class="background text-light p-3 text-center mt-2">Wishlist Section</h3>
+<div class="table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Base Price</th>
+            <th>Discount</th>
+            <th>Final Price</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Stock</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for i in Wishlist %}
+        <tr>
+            {% if i.product.pic1 %}
+            <td><img src={{i.product.pic1.url }} width="150px" height="150px"></td>
+            {% else %}
+            <td><img src="{% static 'images/noimagep.png' %}" width="150px" height="150px"></td>
+            {% endif %}
+            <td>{{i.product.name}}</td>
+            <td>Rs {{i.product.basePrice}}</td>
+            <td>{{i.product.discount}}%</td>
+            <td>Rs {{i.product.finalPrice}}</td>
+            <td>{{i.product.color}}</td>
+            <td>{{i.product.size}}</td>
+            {% if i.product.stock %}
+            <td>In Stock</td>
+            {% else %}
+            <td>Out Of Stock</td>
+            {% endif %}
+            <td><a href="/product/{{i.product.id}}/"><span
+                class="material-icons" style="font-size: 20px;color:navy">shopping_cart</span></a></td>
+            <td><a href="/deleteWishlist/{{i.id}}/"><span
+                class="material-icons" style="font-size: 20px;color:navy">delete_forever</span></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<h3 class="background text-light p-3 text-center mt-2">Order History Section</h3>
+<div class="table-responsive">
+    
+    <table class="table table-light table-striped table-hover">
+        <tr>
+            <th>ID</th>
+            <th>Items</th>
+            <th>Payment Mode</th>
+            <th>Payment Status</th>
+            <th>Order Status</th>
+            <th></th>
+        </tr>
+        {% for i in Checkout %}    
+            <tr>
+                <td>{{i.id}}</td>
+                <td>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Color</th>
+                            <th>Size</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        {% for item in i.products|products %}
+                        <tr>
+                            <td><img src={{item|productImage}} width="50px" height="50px"></td>
+                            <td>{{ item|productName }}</td>
+                            <td>{{ item|productPrice }}</td>
+                            <td>{{ item|productColor }}</td>
+                            <td>{{ item|productSize }}</td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>{{ request|paymentMode:i.mode}}</td>
+                <td>{{ request|paymentStatus:i.paymentStatus }}</td>
+                <td>{{ request|orderStatus:i.status }}</td>
+                {% if request|checkoutDelete:i.paymentStatus %}
+                <td><a href="/paynow/{{i.id}}/"><span
+                    class="material-icons" style="font-size: 20px;color:navy" title="Pay now">credit_card</span></a></td>
+                {% else  %}
+                <td></td>
+                {% endif %}
+                {% if request|checkoutDelete:i.paymentStatus %}
+                <td><a href="/deleteCheckout/{{i.id}}/"><span
+                    class="material-icons" style="font-size: 20px;color:navy">delete_forever</span></a></td>
+                {% else  %}
+                <td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+<title>MyShop | Update Profile</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="background text-light p-3 text-center">Update Profile Section</h3>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <img src="{% static '../static/images/signup.jpg' %}" class="w-100">
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {% for i in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{i}}
+            </div>
+            {% endfor %}
+            <form action="#" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Name " value="{{User.name}}">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Enter Email Id " value={{User.email}}>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number " value={{User.phone}}>
+                </div>
+                <div class="mb-3">
+                    <label for="addressline1" class="form-label">Address Line 1</label>
+                    <input type="text" class="form-control" name="addressline1" placeholder="Enter House Number" value="{{User.addressline1}}">
+                </div>
+                <div class="mb-3">
+                    <label for="addressline2" class="form-label">Address Line 2</label>
+                    <input type="text" class="form-control" name="addressline2" placeholder="Enter Street Number" value="{{User.addressline2}}">
+                </div>
+                <div class="mb-3">
+                    <label for="addressline3" class="form-label">Address Line 3</label>
+                    <input type="text" class="form-control" name="addressline3" placeholder="Enter Village or Locality" value="{{User.addressline3}}">
+                </div>
+                <div class="mb-3">
+                    <label for="pin" class="form-label">Pin</label>
+                    <input type="text" class="form-control" name="pin" placeholder="Enter pin Number " value={{User.pin}}>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" name="city" placeholder="Enter city " value="{{User.city}}">
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" name="state" placeholder="Enter state" value="{{User.state}}">
+                </div>
+                <div class="mb-3">
+                    <label for="pic" class="form-label">Profile Picture</label>
+                    <input type="file" class="form-control" name="pic">
+                </div>
+                <button type="submit" class="btn background text-light w-100">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
